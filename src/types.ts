@@ -1,3 +1,6 @@
+import { Transform } from 'class-transformer';
+import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
+
 export type TaskType = {
   id: number;
   title: string;
@@ -5,18 +8,34 @@ export type TaskType = {
   completed: boolean;
 };
 
-export type CreateTaskType = {
+export class CreateTaskType {
+  @IsNotEmpty({ message: 'Title is required' })
+  @Transform(({ value }) => value?.trim())
+  @MaxLength(50, { message: 'Title must be less than 50 characters' })
   title: string;
-  description?: string;
-};
 
-export type UpdateTaskType = {
+  @IsOptional()
+  @Transform(({ value }) => value?.trim())
+  @MaxLength(100, { message: 'Description must be less than 100 characters' })
+  description?: string;
+}
+
+export class UpdateTaskType {
+  @IsNotEmpty({ message: 'Title is required' })
+  @Transform(({ value }) => value?.trim())
+  @MaxLength(50, { message: 'Title must be less than 50 characters' })
   title?: string;
-  description?: string;
-  completed?: boolean;
-};
 
-export const taskEntity = (task: TaskType): TaskType => {
+  @IsOptional()
+  @Transform(({ value }) => value?.trim())
+  @MaxLength(100, { message: 'Description must be less than 100 characters' })
+  description?: string;
+
+  @IsOptional()
+  completed?: boolean;
+}
+
+export const taskEntity = (task: TaskType) => {
   return {
     id: task.id,
     title: task.title,

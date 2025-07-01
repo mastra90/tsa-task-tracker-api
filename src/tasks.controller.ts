@@ -33,7 +33,7 @@ export class TasksController {
     const taskId = parseInt(id);
     const task = this.taskStorage.tasks.find((t) => t.id === taskId);
     if (!task) {
-      throw new NotFoundException(`Task with id: ${taskId} does not exist.`);
+      throw new NotFoundException(`Task with ID ${taskId} does not exist.`);
     }
     return task;
   }
@@ -57,7 +57,7 @@ export class TasksController {
     const taskIndex = this.taskStorage.tasks.findIndex((t) => t.id === taskId);
 
     if (taskIndex === -1) {
-      throw new NotFoundException(`Task with ID ${taskId} not found`);
+      throw new NotFoundException(`Task with ID ${taskId} not found.`);
     }
 
     const updatedTask = taskEntity({
@@ -75,12 +75,12 @@ export class TasksController {
     const taskIndex = this.taskStorage.tasks.findIndex((t) => t.id === taskId);
 
     if (taskIndex === -1) {
-      throw new NotFoundException(`Task with ID ${taskId} not found`);
+      throw new NotFoundException(`Task with ID ${taskId} not found.`);
     }
 
     const taskToDelete = this.taskStorage.tasks[taskIndex];
     this.taskStorage.tasks.splice(taskIndex, 1);
 
-    return `${taskToDelete.title} deleted successfully`;
+    return { message: `${taskToDelete.title} has been deleted.` };
   }
 }
