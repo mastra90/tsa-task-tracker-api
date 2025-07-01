@@ -5,6 +5,17 @@ export type TaskType = {
   completed: boolean;
 };
 
+export type CreateTaskType = {
+  title: string;
+  description?: string;
+};
+
+export type UpdateTaskType = {
+  title?: string;
+  description?: string;
+  completed?: boolean;
+};
+
 export const taskEntity = (task: TaskType): TaskType => {
   return {
     id: task.id,
