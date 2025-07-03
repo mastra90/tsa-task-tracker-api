@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TaskType, taskEntity } from './types';
 
 @Injectable()
-export class TaskStorage {
+export class TaskService {
   tasks: TaskType[] = [
     taskEntity({
       id: 1,
@@ -14,7 +14,7 @@ export class TaskStorage {
       id: 2,
       title: 'Dummy task 2',
       description: 'Optional description for task 2',
-      completed: true,
+      completed: false,
     }),
     taskEntity({
       id: 3,

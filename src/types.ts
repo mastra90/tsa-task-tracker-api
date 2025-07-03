@@ -6,6 +6,7 @@ export type TaskType = {
   title: string;
   description?: string;
   completed: boolean;
+  updatedAt?: string;
 };
 
 export class CreateTaskType {
@@ -16,7 +17,7 @@ export class CreateTaskType {
 
   @IsOptional()
   @Transform(({ value }) => value?.trim())
-  @MaxLength(100, { message: 'Description must be less than 100 characters' })
+  @MaxLength(500, { message: 'Description must be less than 500 characters' })
   description?: string;
 }
 
@@ -28,7 +29,7 @@ export class UpdateTaskType {
 
   @IsOptional()
   @Transform(({ value }) => value?.trim())
-  @MaxLength(100, { message: 'Description must be less than 100 characters' })
+  @MaxLength(500, { message: 'Description must be less than 500 characters' })
   description?: string;
 
   @IsOptional()
@@ -41,5 +42,6 @@ export const taskEntity = (task: TaskType) => {
     title: task.title,
     description: task.description,
     completed: task.completed,
+    updatedAt: task.updatedAt,
   };
 };

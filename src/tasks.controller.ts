@@ -10,11 +10,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateTaskType, UpdateTaskType, taskEntity } from './types';
-import { TaskStorage } from './tasks.service';
+import { TaskService } from './tasks.service';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private taskStorage: TaskStorage) {}
+  constructor(private taskStorage: TaskService) {}
 
   @Get()
   async getAllTasks(@Query('completed') filterByCompleted?: string) {
@@ -63,6 +63,7 @@ export class TasksController {
     const updatedTask = taskEntity({
       ...this.taskStorage.tasks[taskIndex],
       ...taskData,
+      updatedAt: new Date().toISOString(),
     });
 
     this.taskStorage.tasks[taskIndex] = updatedTask;
